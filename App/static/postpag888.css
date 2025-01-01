@@ -1,0 +1,289 @@
+.body{
+    font-family: 'Arial', sans-serif;
+    color: #2c3e50;
+    /* background-color: #f4f6f8; */
+    display: flex;
+    justify-content: center;
+    min-height: 100vh;
+}
+
+.post-container {
+    width: 100%;
+    max-width: 1200px;
+    margin: 20px auto;
+    background: transparent;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.post-image{
+    width:100% ;
+    max-height: 300px;
+    /* object-fit:contain; */
+    border-radius: 20px;
+    /* background-color: #a9a8ab; */
+    align-self: center;
+    justify-self: center;
+    /* display: block; */
+}
+
+.post-image img {
+    width: 100% ;
+    max-height: 300px;
+    object-fit:contain;
+    /* border: 1px solid rgb(239, 230, 230);  */
+    border-radius: 20px;
+    /* background-color: #a9a8ab; */
+    /* display: block; */
+}
+
+.post-header {
+    padding: 20px;
+    /* border-bottom: 1px solid rgba(200, 200, 200, 0.5); */
+}
+
+.post-title {
+    font-size: clamp(1.5rem, 4vw, 2.5rem); /* Responsive font size */
+    font-weight: 600;
+    color: #f5efef;
+    margin-bottom: 8px;
+}
+
+.post-infor {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    font-size: 12px; /* Responsive metadata font size */
+    color: #7f8c8d;
+    padding:0px;
+    /* background-color: #6a2a2a; */
+}
+
+.post-actions {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    padding-left: 20px;
+    height: fit-content;
+    /* border-bottom: 1px solid rgba(200, 200, 200, 0.5); */
+}
+
+.post-actionspage {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 15px;
+    height: fit-content;
+    /* border-bottom: 1px solid rgba(200, 200, 200, 0.5); */
+}
+
+.post-likespage{
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    border: 1px solid rgb(93, 173, 238);
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive button font size */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #d5dde4;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.post-likespagebdls{
+    /* background-color: rgba(255, 255, 255, 0.8); */
+    /* border: 1px solid rgb(93, 173, 238); */
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive button font size */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #d5dde4;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.post-views {
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive font size */
+    color: #f3f8fc;
+}
+
+.post-likes, .post-bookmark, .post-share {
+    background-color: rgba(255, 255, 255, 0.8);
+    border: none;
+    padding: 10px 15px;
+    border-radius: 20px;
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive button font size */
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    cursor: pointer;
+    color: #2c3e50;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.post-likes.active, .post-bookmark.active {
+    background-color: #64b0e2;
+    color: #ffffff;
+}
+.activate{
+    background-color: #64b0e2;
+    color: #ffffff;
+}
+
+.post-share {
+    position: relative;
+    background-color: #3498db;
+    color: #ffffff;
+}
+
+.post-share:hover {
+    background-color: #2980b9;
+}
+
+.share-dropdown {
+    position: absolute;
+    top: 45px;
+    left: 0;
+    display: none;
+    background-color: #6a2a2a;
+    border: 1px solid rgba(200, 200, 200, 0.5);
+    border-radius: 5px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+}
+
+.share-dropdown a {
+    display: block;
+    padding: 10px;
+    font-size: clamp(0.8rem, 2vw, 1rem); /* Responsive font size */
+    color: #2c3e50;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+}
+
+.share-dropdown a:hover {
+    background-color: #f4f4f4;
+}
+
+.post-share-container.active .share-dropdown {
+    display: block;
+}
+
+.post-content {
+    padding: 20px;
+    font-size: clamp(1rem, 2.5vw, 1.2rem); /* Responsive content font size */
+    color: rgb(185, 199, 219);
+    line-height: 1.8;
+}
+
+.post-content p {
+    margin-bottom: 15px;
+}
+
+.dimpage{
+    opacity:0.7;
+}
+
+.pageon{
+    /* background-color: #d0bbbb; */
+    border-radius: 50%;
+    border: 2px solid rgb(255, 255, 255);
+}
+
+
+.blog-register-body {
+    padding: 0px;
+    margin-top: 100px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 70vh;  
+    /* border: 1px solid white; */
+}
+
+.blog-register-container {
+    /* background: #ffffff; */
+    padding: 2rem;
+    border-radius: 15px;
+    box-shadow: 0px 8px 20px rgba(105, 96, 96, 0.1);
+    width: 100%;
+    max-width: 400px;
+    border: 1px solid rgb(255, 255, 255);
+}
+
+.blog-register-title {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: #97b9d5;
+    margin-top: 30px;
+}
+
+.blog-register-form {
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+}
+.blog-register-input {
+    background-color: white;
+    padding: 0.8rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 1rem;
+    color: black;
+}
+.blog-register-button {
+    background: #386aa0;
+    color: #ffffff;
+    padding: 0.8rem;
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: 0.3s;
+}
+.blog-register-button:hover {
+    background: #0056b3;
+}
+.blog-register-text {
+    margin-top: 10px;
+    text-align: center;
+    font-size: 11px;
+    color: #848484;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-register-text a {
+    margin-top: 4px;
+    color: #ffffff;
+    text-decoration: underline;
+    width: fit-content;
+    align-self: center;
+    justify-self: center;
+}
+.blog-register-text a:hover {
+    color: rgb(27, 117, 200);
+}
+
+.logintag{
+    color: rgb(255, 255, 255);
+    text-decoration:underline;
+    margin-right: 4px;
+}
+.borderh4{
+    color: #5d7a98;
+    display: flex;
+    margin-top: 10px;
+    border: 1px solid rgb(53, 68, 88) ;
+    width:fit-content;
+    padding: 5px;
+    border-radius: 5px;
+}

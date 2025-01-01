@@ -1,0 +1,863 @@
+{%load static%}
+{% load custom_filters %}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="csrf-token" content="{{ csrf_token }}">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- 
+    - primary meta tags
+  -->
+  <title>Tech Scape - Perosonal Blog Website</title>
+  <meta name="title" content="Perosonal Blog Website">
+  <meta name="description" content="This is a blog html template made by Laycon">
+
+  <!-- 
+    - favicon
+  -->
+  <link rel="shortcut icon" href="./favicon.svg" type="image/svg+xml">
+
+  <!-- 
+    - google font link
+  -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans:wght@300;400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- 
+    - custom css link
+  -->
+  <link rel="stylesheet" href="{% static 'styles789.css'%}">
+  <link rel="stylesheet" href="{% static 'related22.css'%}">
+  <link rel="stylesheet" href="{% static 'postpag888.css'%}">
+
+  <!-- 
+    - preload images
+  -->
+  <link rel="preload" as="image" href="hero-banner.png">
+  <link rel="preload" as="image" href="pattern-2.svg">
+  <link rel="preload" as="image" href="pattern-3.svg">
+
+</head>
+
+<body id="top">
+
+  <!-- 
+    - #HEADER
+  -->
+  {% block nav %}
+  <header class="header" data-header>
+    <div class="container">
+
+      <a href="{% url 'home' %}" class="logo">
+        {% comment %} <img src="" width="119" height="37" alt="Wren logo"> {% endcomment %}
+        <span class="span1">Tech Scape</span>
+      </a>
+
+      <nav class="navbar" data-navbar>
+
+        <div class="navbar-top">
+          <a href="#" class="logo">
+            <img src="{% static 'logo.svg'%}" width="119" height="37" alt="Tech Scape logo">
+          </a>
+
+          <button class="nav-close-btn" aria-label="close menu" data-nav-toggler>
+            <ion-icon name="close-outline" aria-hidden="true"></ion-icon>
+          </button>
+        </div>
+
+        <ul class="navbar-list">
+
+          <li>
+            <a href="{% url 'home' %}" class="navbar-link hover-1" data-nav-toggler>Home</a>
+          </li>
+
+          <li>
+            <a href="{% url 'categories' %}" class="navbar-link hover-1" data-nav-toggler>Categories</a>
+          </li>
+
+          <li>
+            <a href="#featured" class="navbar-link hover-1" data-nav-toggler>Featured Post</a>
+          </li>
+
+          <li>
+            <a href="{% url 'recentposts' %}" class="navbar-link hover-1" data-nav-toggler>Recent Post</a>
+          </li>
+
+          <li>
+            <a href="#" class="navbar-link hover-1" data-nav-toggler>About</a>
+          </li>
+
+        </ul>
+
+        <div class="navbar-bottom">
+          {% if user.is_authenticated  %}
+          <div class="profile-card">
+            {% comment %} <img src="author-1.png" width="48" height="48" alt="Steven" class="profile-banner"> {% endcomment %}
+
+            <div>
+              <p class="card-title">Hello {{ user.username }}!</p>
+              <p class="card-subtitle">
+                You have 3 new contents to read.
+              </p>
+              
+            </div>
+          </div>
+
+          <ul class="link-list">
+
+            <li>
+              <a href="#" class="navbar-bottom-link hover-1">Profile</a>
+            </li>
+
+            <li>
+              <a href="#" class="navbar-bottom-link hover-1">Articles Saved</a>
+            </li>
+
+            <li>
+              <a href="#" class="navbar-bottom-link hover-1">Subscribe</a>
+            </li>
+
+            <li>
+              <a href="#" class="navbar-bottom-link hover-1">My Likes</a>
+            </li>
+
+            <li>
+              <a href="#" class="navbar-bottom-link hover-1" style="pointer-events: none">Add New Post</a>
+            </li>
+
+            <li>
+              <a href="{% url 'logout' %}" class="navbar-bottom-link hover-1">Sign Out</a>
+            </li>
+
+          
+          {% else %}
+            <li>
+              <a href="{% url 'login' %}" class="navbar-bottom-link hover-1">Login</a>
+            </li>
+            <li>
+              <a href="{% url 'register' %}" class="navbar-bottom-link hover-1">Register</a>
+            </li>
+          </ul>
+          {% endif %}
+
+        </div>
+
+        <p class="copyright-text">
+          Copyright 2022 © Tech Scape - Personal Blog Template.
+          Developed by Laycon
+        </p>
+
+      </nav>
+      
+      {% if user.is_authenticated  %}
+      <a href="#" class="btn btn-primary">Profile</a>
+      {% else %}
+      <a href="{% url 'login' %}" class="btn btn-primary">Login</a>
+      {% endif %}
+
+      <button class="nav-open-btn" aria-label="open menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true"></ion-icon>
+      </button>
+
+    </div>
+  </header>
+  {% endblock  %}
+
+
+
+
+  <main>
+    <article>
+
+      <!-- 
+        - #HERO
+      -->
+      {%block hero%}
+      <section class="hero" id="home" aria-label="home">
+        <div class="container">
+
+          <div class="hero-content">
+
+            {% comment %} {% if request.user %} {% endcomment %}
+            <p class="hero-subtitle">Hello {{ user.username }}!</p>
+            {% comment %} {% endif %} {% endcomment %}
+
+            <h1 class="headline headline-1 section-title">
+              Dive into <span class="span">Tech Scape</span>
+            </h1>
+
+            <p class="hero-text">
+              Your go-to platform for discovering the latest in tech and blogging. Here, we provide updates
+              and insights to help users engage with dynamic content and community discussions. Explore 
+              features like user-friendly categories, comment sections, and social sharing tools to stay 
+              connected. With registration, enjoy personalized interactions and post engagement. 
+            </p>
+              
+            {% if request.user and user.is_authenticated  %}
+            <p class="hero-text1">
+              {{ user.username }}, your inbox just got updated with our latest newsletters.
+            </p>
+            
+            {% else %}
+            <div class="input-wrapper">
+              <input type="email" name="email_address" placeholder="Type your email address" required
+                class="input-field" autocomplete="off">
+
+              <button class="btn btn-primary">
+                <span class="span">Subscribe</span>
+
+                <ion-icon name="arrow-forward-outline" aria-hidden="true"></ion-icon>
+              </button>
+            </div>
+            {% endif %}
+
+            
+
+          </div>
+
+          <div class="hero-banner">
+
+            <img src="{%static '1.png'%}" width="327" height="490" alt="Wren Clark" class="w-100">
+
+            <img src="{%static 'pattern-2.svg' %}" width="27" height="26" alt="shape" class="shape shape-1">
+
+            <img src="{%static '' %}pattern-3.svg" width="27" height="26" alt="shape" class="shape shape-2">
+
+          </div>
+
+          <img src="{%static '' %}shadow-1.svg" width="500" height="800" alt="" class="hero-bg hero-bg-1">
+
+          <img src="{%static '' %}shadow-2.svg" width="500" height="500" alt="" class="hero-bg hero-bg-2">
+
+        </div>
+      </section>
+      {% endblock  %}
+
+      <!-- 
+        - #TOPICS
+      -->
+      {%block usercontents%}
+      <section class="topics" id="topics" aria-labelledby="topic-label">
+        <div class="container">
+
+          <div class="card topic-card">
+
+              <div class="card-content">
+
+                <h2 class="headline headline-2 section-title card-title" id="topic-label">
+                  Hot topics
+                </h2>
+
+                <p class="card-text">
+                  Don't miss out on the latest news in Tech
+                </p>
+
+                <div class="btn-group">
+                  <button class="btn-icon" aria-label="previous" data-slider-prev>
+                    <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
+                  </button>
+
+                  <button class="btn-icon" aria-label="next" data-slider-next>
+                    <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                  </button>
+                </div>
+
+              </div>
+
+              <div class="slider" data-slider>
+                <ul class="slider-list" data-slider-container>
+
+                  {% for cat in images_data %}
+                  <li class="slider-item">
+                    <a href="{% url 'category_detail' name=cat.name %}" class="slider-card">
+
+                      <figure class="slider-banner img-holder" style="--width: 507; --height: 618;">
+                        <img src="{{cat.image.url}}" width="507" height="618" loading="lazy"
+                          class="img-cover">
+                      </figure>
+
+                      <div class="slider-content">
+                        <span class="slider-title">{{cat.name}}</span>
+                        {%if cat.total < 2%}
+                        <p class="slider-subtitle">{{ cat.posts.count }} Article</p>
+                        {% else %}
+                        <p class="slider-subtitle">{{ cat.posts.count }} Articles</p>
+                        {% endif %}
+                      </div>
+
+                    </a>
+                  </li>
+                  {% endfor %}
+                </ul>
+              </div>
+
+          </div>
+
+        </div>
+      </section>
+      {% endblock  %}
+
+
+
+
+
+      <!-- 
+        - #FEATURED POST
+      -->
+      {%block featured%}
+      <section class="section feature" aria-label="feature" id="featured">
+        <div class="container">
+
+          <h2 class="headline headline-2 section-title">
+            <span class="span">Today's pick</span>
+          </h2>
+
+          <p class="section-text">
+            Enjoy highly rated articles on Tech Scape
+          </p>
+
+          <ul class="feature-list">
+
+            {% for myblog in blog %}
+            <li>
+              <div class="card feature-card">
+
+                <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                  <img src="{{myblog.image.url}}" width="1602" height="903" loading="lazy"
+                    alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                </figure>
+
+                <div class="card-content">
+
+                  <div class="card-wrapper">
+                    <div class="card-tag">
+                      <div class="post-actionspage">
+                                        
+                        <button class="post-likespage" onclick="togglePostLike()" title="Like this post">
+                            ❤️ <span id="like-count">{{myblog.likes.count}}</span>
+                        </button>
+                      
+                      </div>
+                    </div>
+
+                    <div class="wrapper">
+                      <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                      <span class="span">{{myblog.mins_read}} mins read</span>
+                    </div>
+                  </div>
+
+                  <h3 class="headline headline-3">
+                    <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="card-title hover-2">
+                      {{myblog.title}}
+                    </a>
+                  </h3>
+                  <h1 class='innerbodytext'>
+                    {{myblog.body|slice:':90'}}...
+                  </h1>
+                  <div class="card-wrapper">
+
+                    <div class="profile-card">
+                      {% comment %} <img src="{{myblog.dp.url}}" width="48" height="48" loading="lazy" alt="Joseph"
+                        class="profile-banner"> {% endcomment %}
+
+                      <div>
+                        {% comment %} <p class="card-title">{{myblog.username}}</p> {% endcomment %}
+
+                        <p class="card-subtitle">{{myblog.time|date:"F j, Y"}}</p>
+                      </div>
+                    </div>
+
+                    <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="card-btn">Read more</a>
+
+                  </div>
+
+                </div>
+
+              </div>
+            </li>
+            {% endfor %}
+
+          </ul>
+
+          <a href="{% url 'categories'%}" class="btn btn-secondary">
+            <span class="span">Show categories</span>
+
+            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+          </a>
+
+        </div>
+
+        <img src="{%static '' %}shadow-3.svg" width="500" height="1500" loading="lazy" alt="" class="feature-bg">
+
+      </section>
+      {% endblock  %}
+
+
+
+
+
+      <!-- 
+        - #POPULAR TAGS
+      -->
+      {%block  populartags%}
+      <section class="tags" aria-labelledby="tag-label">
+        <div class="container">
+
+          <h2 class="headline headline-2 section-title" id="tag-label">
+            <span class="span">Popular Tags</span>
+          </h2>
+
+          <p class="section-text">
+            Most searched keywords
+          </p>
+
+          <ul class="grid-list">
+
+            {% for category in all_categ %}
+              <li>
+                <a href="{% url 'category_detail' name=category.name %}">
+                  <button class="card tag-btn">
+                      <img src="{%static 'tag1.png' %}" width="32" height="32" loading="lazy" alt="Travel">
+
+                      <p class="btn-text">{{category.name}}</p>
+                  </button>
+                </a>
+            </li>
+            {% endfor %}        
+
+          </ul>
+
+        </div>
+      </section>
+      {% endblock  %}
+
+
+      <!-- 
+        - #RECENT POST
+      -->
+      {%block recents %}
+      <section class="section recent-post" id="recent" aria-labelledby="recent-label">
+        <div class="container">
+
+          <div class="post-main">
+
+            <h2 class="headline headline-2 section-title">
+              <span class="span">Recent posts</span>
+            </h2>
+
+            <p class="section-text">
+              Don't miss the latest trends
+            </p>
+
+            <ul class="grid-list">
+
+              {% for myblog in blog_mod %}
+              <li>
+                <div class="recent-post-card">
+                  
+                  <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                    <img src="{{myblog.image.url}}" width="271" height="258" loading="lazy"
+                      class="img-cover">
+                  </figure>
+
+                  <div class="card-content">
+
+                    <a href="{% url 'category_detail' name=myblog.category.name %}" class="card-badge">{{myblog.category.name}}</a>
+
+                    <h3 class="headline headline-3 card-title">
+                      <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="link hover-2">{{myblog.title}}</a>
+                    </h3>
+
+                    <p class="card-text">
+                      {{myblog.body|slice:':110'}}...
+                    </p>
+
+                    <div class="card-wrapper">
+                      <div class="card-tag">
+                        <div class="wrapper">
+                          <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+                          {% if myblog.time < 60 %}
+                          <span class="span">{{myblog.time}} minutes ago</span>
+                          {% elif myblog.time > 59 and myblog.time < 120 %}
+                          <span class="span">{{myblog.time|divide_by:60}} hour ago</span>
+                          {% elif myblog.time > 119 and myblog.time < 1440 %}
+                          <span class="span">{{myblog.time|divide_by:60}} hours ago</span>
+                          {% elif myblog.time > 1439 and myblog.time < 2880 %}
+                          <span class="span">{{myblog.time|divide_by:1440}} day ago</span>
+                          {% elif myblog.time > 2879 and myblog.time < 43200 %}
+                          <span class="span">{{myblog.time|divide_by:1440}} days ago</span>
+                          {% elif myblog.time > 43199 and myblog.time < 86400 %}
+                          <span class="span">{{myblog.time|divide_by:43200}} month ago</span>
+                          {% else %}
+                          <span class="span">{{myblog.time|divide_by:43200}} months ago</span>
+                          {% endif %}
+                        </div>
+                      </div>
+
+                      <div class="wrapper">
+                        {% comment %} <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                        <span class="span">{{myblog.mins_read}} minutes read</span> {% endcomment %}
+                      </div>
+                    </div>
+
+                  </div>
+
+                </div>
+              </li>
+              {% endfor %}
+
+            </ul>
+
+            <div class="cntr">
+
+              <a href="{% url 'recentposts'%}" class="btn1 btn-secondary">
+                <span class="span">Show more</span>
+    
+                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+              </a>
+
+            </div>
+
+            {% comment %} <nav aria-label="pagination" class="pagination">
+
+              <a href="#" class="pagination-btn" aria-label="previous page">
+                <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
+              </a>
+
+              <a href="#" class="pagination-btn">1</a>
+              <a href="#" class="pagination-btn">2</a>
+              <a href="#" class="pagination-btn">3</a>
+              <a href="#" class="pagination-btn" aria-label="more page">...</a>
+
+              <a href="#" class="pagination-btn" aria-label="next page">
+                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+              </a>
+
+            </nav> {% endcomment %}
+
+          </div>
+
+          <div class="post-aside grid-list">
+
+            <div class="card aside-card">
+
+              <h3 class="headline headline-2 aside-title">
+                <span class="span">Popular Posts</span>
+              </h3>
+
+              <ul class="comment-list">
+                {% for blog in likes_cat  %}
+                <li>
+                  <div class="comment-card">
+                    <h4 class="headline headline-4 card-title">
+                      <a href="{% url 'postpage' name=blog.category.name slug=blog.slug %}" class="link hover-2">{{ blog.title }}</a>
+                    </h4>
+
+                    {% comment %} <blockquote class="card-text">
+                      "{{post.body|slice:':98' }}..."
+                    </blockquote> {% endcomment %}
+
+                    <div class="profile-card">
+                
+                     {% comment %} <figure class="profile-banner img-holder">
+                        <img src="{{ post.image.url }}" width="40" height="40" loading="lazy" alt="Jane Cooper">
+                      </figure> {% endcomment %}
+
+                      <div>
+                        <time class="card-date" datetime="2022-04-15">{{ blog.views_count }} views</time>
+                        <time class="card-date" datetime="2022-04-15">{{ blog.time|date:"F j, Y" }}</time>
+                      </div>
+                    </div>
+
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+            <div class="card aside-card">
+
+              <h3 class="headline headline-2 aside-title">
+                <span class="span">Most Liked Posts</span>
+              </h3>
+
+              <ul class="comment-list">
+                {% for post in post_likes %}
+                <li>
+                  <div class="comment-card">
+                    <h4 class="headline headline-4 card-title">
+                      <a href="{% url 'postpage' name=post.category.name slug=post.slug %}" class="link hover-2">{{ post.title }}</a>
+                    </h4>
+
+                    {% comment %} <blockquote class="card-text">
+                      "{{post.body|slice:':98' }}..."
+                    </blockquote> {% endcomment %}
+
+                    <div class="profile-card">
+                
+                     {% comment %} <figure class="profile-banner img-holder">
+                        <img src="{{ post.image.url }}" width="40" height="40" loading="lazy" alt="Jane Cooper">
+                      </figure> {% endcomment %}
+
+                      <div>
+                        
+
+                        <time class="card-date" datetime="2022-04-15">{{ post.likes.count }} likes</time>
+                        <time class="card-date" datetime="2022-04-15">{{ post.time|date:"F j, Y" }}</time>
+                      </div>
+                    </div>
+
+                  </div>
+                </li>
+                {% endfor %}
+              </ul>
+
+            </div>
+
+            <div class="card aside-card insta-card">
+
+              <a href="#" class="logo">
+                <img src="{%static '' %}logo.svg" width="119" height="37" loading="lazy" alt="Wren logo">
+              </a>
+
+              <p class="card-text">
+                Follow us on instagram
+              </p>
+
+              <ul class="insta-list">
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-1.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-2.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-3.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-4.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-5.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-6.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-7.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-8.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+                <li>
+                  <a href="#" class="insta-post img-holder" style="--width: 276; --height: 277;">
+                    <img src="{%static '' %}insta-post-9.png" width="276" height="277" loading="lazy" alt="insta post"
+                      class="img-cover">
+                  </a>
+                </li>
+
+              </ul>
+
+            </div>
+
+          </div>
+
+        </div>
+      </section>
+      {% endblock  %}
+    </article>
+  </main>
+
+
+
+
+
+  <!-- 
+    - #FOOTER
+  -->
+  {%block footer%}
+  <footer>
+    <div class="container">
+
+      <div class="card footer">
+
+        <div class="section footer-top">
+
+          <div class="footer-brand">
+
+            <a href="#" class="logo">
+              {% comment %} <img src="{%static 'logo.svg' %}" width="119" height="37" loading="lazy" alt="Wren logo"> {% endcomment %}
+              <span class="span1">Tech Scape</span>
+            </a>
+
+            <p class="footer-text">
+              When an unknown prnoto sans took a galley and scrambled it to make specimen book not only five When an
+              unknown prnoto sans took a galley and scrambled it to five centurie.
+            </p>
+
+            <p class="footer-list-title">Address</p>
+
+            <address class="footer-text address">
+              123 Main Street <br>
+              New York, NY 10001
+            </address>
+
+          </div>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Categories</p>
+
+            <ul>
+
+              {% for category in all_categ %}
+              <li>
+                <a href="{% url 'category_detail' name=category.name %}" class="footer-link hover-2">{{category.name}}</a>
+              </li>
+              {% endfor %}
+
+            </ul>
+
+          </div>
+
+          <div class="footer-list">
+
+            <p class="footer-list-title">Newsletter</p>
+
+            <p class="footer-text">
+              Sign up to be first to receive the latest stories inspiring us, case studies, and industry news.
+            </p>
+
+            <div class="input-wrapper">
+              <input type="text" name="name" placeholder="Your name" required class="input-field" autocomplete="off">
+
+              <ion-icon name="person-outline" aria-hidden="true"></ion-icon>
+            </div>
+
+            <div class="input-wrapper">
+              <input type="email" name="email_address" placeholder="Emaill address" required class="input-field"
+                autocomplete="off">
+
+              <ion-icon name="mail-outline" aria-hidden="true"></ion-icon>
+            </div>
+
+            <a href="#" class="btn btn-primary">
+              <span class="span">Subscribe</span>
+
+              <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+
+          </div>
+
+        </div>
+
+        <div class="footer-bottom">
+
+          <p class="copyright">
+            &copy; Developed by <a href="#" class="copyright-link">Laycon.</a>
+          </p>
+
+          <ul class="social-list">
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-twitter"></ion-icon>
+
+                <span class="span">Twitter</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-linkedin"></ion-icon>
+
+                <span class="span">LinkedIn</span>
+              </a>
+            </li>
+
+            <li>
+              <a href="#" class="social-link">
+                <ion-icon name="logo-instagram"></ion-icon>
+
+                <span class="span">Instagram</span>
+              </a>
+            </li>
+
+          </ul>
+
+          <div class="rights">
+            All Rights Reserved 2024
+          </div>
+
+        </div>
+
+      </div>
+
+    </div>
+  </footer>
+  {% endblock  %}
+
+  <!-- 
+    - #BACK TO TOP
+  -->
+
+  <a href="#top" class="back-top-btn" aria-label="back to top" data-back-top-btn>
+    <ion-icon name="arrow-up-outline" aria-hidden="true"></ion-icon>
+  </a>
+
+  <!-- 
+    - custom js link
+  -->
+  <script src="{% static 'script22.js'%}"></script>
+
+  <!-- 
+    - ionicon link
+  -->
+  <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+  <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>

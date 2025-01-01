@@ -1,0 +1,98 @@
+{%extends 'layout.html'%}
+
+{% block hero %}
+
+{% endblock  %}
+
+{% block usercontents %}
+
+{% endblock  %}
+
+{% block populartags %}
+
+{% endblock  %}
+
+{% block recents %}
+
+{% endblock  %}
+
+{%block featured%}
+    <section class="section feature" aria-label="feature" id="featured">
+        <div class="container">
+
+            <h2 class="headline headline-2 section-title">
+                <span class="span">Coding Category  </span>
+            </h2>
+
+            <p class="section-text">
+                A hub for top-rated articles to learn and grow.
+            </p>
+
+            <ul class="feature-list">
+
+                <div class= 'postgrid'>
+                    {% for myblog in blog %}
+                    <div class="feat-card">
+
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                        <img src="{{myblog.image.url}}" width="1602" height="903" loading="lazy"
+                            alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
+
+                        <div class="card-content">
+
+                        <div class="card-wrapper">
+                            <div class="card-tag">
+                            <a href="#" class="span hover-2">#Tech</a>
+
+                            <a href="#" class="span hover-2">#Programmer</a>
+                            </div>
+
+                            <div class="wrapper">
+                            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+
+                            <span class="span">3 mins read</span>
+                            </div>
+                        </div>
+
+                        <h3 class="headline headline-3">
+                            <a href="#" class="card-title hover-2">
+                            {{myblog.title}}
+                            </a>
+                            <h1 class='innerbodytext'>
+                            {{myblog.body|slice:':72'}}...
+                            </h1>
+                        </h3>
+
+                        <div class="card-wrapper">
+
+                            <div class="profile-card">
+                            <img src="{{myblog.dp.url}}" width="48" height="48" loading="lazy" alt="Joseph"
+                                class="profile-banner">
+
+                            <div>
+                                <p class="card-title">{{myblog.username}}</p>
+
+                                <p class="card-subtitle">{{myblog.time}}</p>
+                            </div>
+                            </div>
+                            <a href="{% url 'postpage' slug=myblog.slug %}" class="card-btn">Read more</a>
+                        </div>
+
+                        </div>
+
+                    </div>
+                    {% endfor %}  
+                </div>
+            </ul>
+
+            <a href="#" class="btn btn-secondary">
+                <span class="span">Show More Posts</span>
+
+                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+
+        </div>
+
+    </section>
+{% endblock  %}

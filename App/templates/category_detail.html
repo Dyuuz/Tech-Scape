@@ -1,0 +1,158 @@
+{%extends 'layout.html'%}
+
+{% block hero %}
+
+{% endblock  %}
+
+{% block usercontents %}
+
+{% endblock  %}
+
+{% block populartags %}
+
+{% endblock  %}
+
+{% block recents %}
+
+{% endblock  %}
+
+{%block featured%}
+    <section class="section feature" aria-label="feature" id="featured">
+        <div class="container">
+
+            <h2 class="headline headline-2 section-title">
+                <span class="span">{{category.name}}</span>
+            </h2>
+
+            <p class="section-text">
+                {{category.bio}}
+            </p>
+
+            <ul class="feature-list">
+                
+                {% for myblog in page_obj %}
+                <li>
+                    <div class="card feature-card">
+        
+                        <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                        <img src="{{myblog.image.url}}" width="1602" height="903" loading="lazy"
+                            alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                        </figure>
+        
+                        <div class="card-content">
+        
+                        <div class="card-wrapper">
+                            <div class="card-tag">
+                                <div class="card-tag">
+                                    <div class="post-actionspage">
+                                                      
+                                      <button class="post-likespage" onclick="toggleLike()" title="Like this post">
+                                          ❤️ <span id="like-count">{{myblog.likes.count}}</span>
+                                      </button>
+                          
+                                    </div>
+                                  </div>
+                            </div>
+        
+                            <div class="wrapper">
+                            <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+        
+                            <span class="span">{{myblog.mins_read}} minutes read</span>
+                            </div>
+                        </div>
+        
+                        <h3 class="headline headline-3">
+                            <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="card-title hover-2">
+                            {{myblog.title}}
+                            </a>
+                        </h3>
+                        <h1 class='innerbodytext'>
+                            {{myblog.body|slice:':72'}}...
+                        </h1>
+                        <div class="card-wrapper">
+        
+                            <div class="profile-card">
+                            {% comment %} <img src="{{myblog.dp.url}}" width="48" height="48" loading="lazy" alt="Joseph"
+                                class="profile-banner"> {% endcomment %}
+        
+                            <div>
+                                {% comment %} <p class="card-title">{{myblog.username}}</p> {% endcomment %}
+        
+                                <p class="card-subtitle">{{myblog.time|date:"F j, Y h:i a"}}</p>
+                            </div>
+                            </div>
+        
+                            <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="card-btn">Read more</a>
+        
+                        </div>
+        
+                        </div>
+        
+                    </div>
+                </li>
+                {% empty %}
+                    <li>No posts available.</li>
+                {% endfor %}  
+                
+            </ul>
+
+            {% if  blog_posts  %}
+            <div class="cntr">
+                <nav aria-label="pagination" class="pagination">
+
+                    {% if page_obj.has_previous %}
+                        <a href="?page={{ page_obj.previous_page_number }}" class="pagination-btn" aria-label="previous page">
+                            <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
+                        </a>
+                    {% else %}
+                        <div class="dimpage">
+                            <a  class="pagination-btn" aria-label="next page">
+                                <ion-icon name="arrow-back" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    {% endif %}
+                        
+                    {% for num in page_range %}
+                        {% if page_obj.number == num %}
+                            <div class="pageon">
+                                <a href="" class="pagination-btn">{{ num }}</a>
+                            </div>
+                        {% else %}
+                        <a href="?page={{ num }}" class="pagination-btn">{{ num }}</a>
+                        {% endif %}
+                    {% endfor %}
+
+                    <!-- Ellipsis for skipping pages -->
+                    {% if show_ellipsis > 3 %}
+                        <span>...</span>
+                        <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-btn">{{ page_obj.paginator.num_pages }}</a>
+                    {% endif %}
+                                    
+                        
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}" class="pagination-btn" aria-label="next page">
+                            <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                        </a>
+                    {% else %}
+                        <div class="dimpage">
+                            <a  class="pagination-btn" aria-label="next page">
+                                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+                            </a>
+                        </div>
+                    {% endif %}                    
+    
+                </nav>
+            </div>
+            {% endif %}
+            
+{% comment %} 
+            <a href="#" class="btn btn-secondary">
+                <span class="span">Show More Posts</span>
+
+                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a> {% endcomment %}
+
+        </div>
+
+    </section>
+{% endblock  %}

@@ -1,0 +1,156 @@
+{%extends 'layout.html' %}
+{% load static%}
+{% load custom_filters %}
+
+{% block hero %}
+
+{% endblock  %}
+
+{% block usercontents %}
+
+{% endblock  %}
+
+{% block populartags %}
+
+{% endblock  %}
+
+{% block recents %}
+
+{% endblock  %}
+
+{%block featured%}
+    <section class="tags" aria-labelledby="tag-label">
+        <div class="container">
+
+            <h2 class="headline headline-2 section-title" id="tag-label">
+                <span class="span">Categories</span>
+            </h2>
+
+            <p class="section-text">
+                Most searched keywords
+            </p>
+
+            <ul class="grid-list">
+                {% for category in all_categ %}
+                <li>
+                <a href="{% url 'category_detail' name=category.name %}">
+                <button class="card tag-btn">
+                    {% comment %} <img src="{{category.image.url}}" width="32" height="32" loading="lazy" alt="Travel"> {% endcomment %}
+                    <img src="{{category.image.url}}" class="logo_dp">
+
+                    <p class="btn-text">{{category.name}}</p>
+                </button>
+                </a>
+                </li>
+                {% endfor %}
+
+            </ul>
+
+        </div>
+    </section>
+    <section class="section feature" aria-label="feature" id="featured">
+        
+        <div class="container">
+              
+            {% for category in categories %}
+            <h2 class="headline headline-2 section-title">
+                <span class="span">{{category.name}}</span>
+            </h2>
+
+            <p class="section-text">
+                {{category.bio}}
+            </p>
+ 
+            <ul class="feature-list">
+
+                {% comment %} <div class= 'postgrid'> {% endcomment %}
+                    {% for myblog in category.limited_posts %}
+                    <li>
+                        <div class="card feature-card">
+          
+                            <figure class="card-banner img-holder" style="--width: 1602; --height: 903;">
+                                <img src="{{myblog.image.url}}" width="1602" height="903" loading="lazy"
+                                alt="Self-observation is the first step of inner unfolding" class="img-cover">
+                            </figure>
+            
+                            <div class="card-content">
+            
+                                <div class="card-wrapper">
+                                <div class="card-tag">
+                                    <div class="post-actionspage">
+                                        
+                                        <button class="post-likespage" onclick="toggleLike()" title="Like this post">
+                                            ❤️ <span id="like-count">{{myblog.likes.count}}</span>
+                                        </button>
+                                        
+                                    
+                                    </div>
+                                </div>
+            
+                                <div class="wrapper">
+                                    <ion-icon name="time-outline" aria-hidden="true"></ion-icon>
+            
+                                    <span class="span">{{myblog.mins_read}} mins read</span>
+                                </div>
+                                </div>
+            
+                                <h3 class="headline headline-3">
+                                <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="card-title hover-2">
+                                    {{myblog.title}}
+                                </a>
+                                </h3>
+                                <h1 class='innerbodytext'>
+                                {{myblog.body|slice:':90'}}...
+                                </h1>
+                                <div class="card-wrapper">
+            
+                                <div class="profile-card">
+                                    {% comment %} <img src="{{myblog.dp.url}}" width="48" height="48" loading="lazy" alt="Joseph"
+                                    class="profile-banner"> {% endcomment %}
+            
+                                    <div>
+                                        {% comment %} <p class="card-title">{{myblog.username}}</p> {% endcomment %}
+                                        {% comment %} <p class="card-subtitle">{{myblog.time|date:"F j, Y"}}</p> {% endcomment %}
+                                        {% if myblog.time < 60 %}
+                                        <span class="span22">{{myblog.time}} minutes ago</span>
+                                        {% elif myblog.time > 59 and myblog.time < 120 %}
+                                        <span class="span22">{{myblog.time|divide_by:60}} hour ago</span>
+                                        {% elif myblog.time > 119 and myblog.time < 1440 %}
+                                        <span class="span22">{{myblog.time|divide_by:60}} hours ago</span>
+                                        {% elif myblog.time > 1439 and myblog.time < 2880 %}
+                                        <span class="span22">{{myblog.time|divide_by:1440}} day ago</span>
+                                        {% elif myblog.time > 2879 and myblog.time < 43200 %}
+                                        <span class="span22">{{myblog.time|divide_by:1440}} days ago</span>
+                                        {% elif myblog.time > 43199 and myblog.time < 86400 %}
+                                        <span class="span22">{{myblog.time|divide_by:43200}} month ago</span>
+                                        {% else %}
+                                        <span class="span22">{{myblog.time|divide_by:43200}} months ago</span>
+                                        {% endif %}
+                                    </div>
+                                </div>
+            
+                                <a href="{% url 'postpage' name=myblog.category.name slug=myblog.slug %}" class="card-btn">Read more</a>
+          
+                            </div>
+          
+                        </div>
+                    </li>
+                    {% empty %}
+                        <li>No posts available.</li>
+                    {% endfor %}  
+                {% comment %} </div> {% endcomment %}
+            </ul>
+
+            {% if category.limited_posts %}
+            <a href="{% url 'category_detail' name=category.name %}" class="btn btn-secondary">
+                <span class="span">view {{category.name|lowercasepyt}} posts</span>
+
+                <ion-icon name="arrow-forward" aria-hidden="true"></ion-icon>
+            </a>
+            {% endif %}
+            {% endfor %}
+
+        </div>
+
+    </section>
+{% endblock  %}
