@@ -316,6 +316,9 @@ def update_like(request):
             return JsonResponse({'success': True, 'message': 'Post unliked successfully!'})
         
 def update_bookmark(request):
+    """
+    Logic script to update user bookmark feature directly with ajax request 
+    """
     if request.method == "POST":
         data = request.body
         Ajax_data = json.loads(data.decode('utf-8'))
