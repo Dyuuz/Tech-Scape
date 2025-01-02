@@ -295,6 +295,9 @@ def deserial(data):
     return images_data
 
 def update_like(request):
+    """
+    Function to update user like feature directly with ajax request 
+    """
     if request.method == "POST":
         data = request.body
         Ajax_data = json.loads(data.decode('utf-8'))
