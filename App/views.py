@@ -8,7 +8,6 @@ from datetime import datetime
 from django.core.cache import cache
 from django import template
 from django.urls import reverse
-
 from .models import *
 import random
 from django.contrib.auth import authenticate, login, logout
@@ -75,6 +74,7 @@ def home(request):
         
     return render(request, 'index.html', locals())
 
+# Query recently uploaded data frok DB
 def recentposts(request):
     all_categ = Category.objects.all()
     recentpost = Blog.objects.all().order_by('-time')
@@ -124,7 +124,8 @@ def recentposts(request):
         mod.time = f"{time_diff:.0f}"
         mod.time = int(mod.time)
     return render (request , 'recent.html', locals())
-    
+
+# Create operation for new users
 def register(request):
     all_categ = Category.objects.all()
     if request.method == 'POST':
@@ -147,12 +148,14 @@ def register(request):
     else:
         return render(request, 'register.html', locals())
 
+# Creates session when user tries to interact with a blog post if no user is authenticated
 def loginsession(request, name, slug):
     request.session.flush() # Clear existing data in session
     request.session['post_slug'] = slug
     request.session['cat_name'] = name
     return redirect("login")
 
+# Read operation for existing users 
 def login_view(request):
     all_categ = Category.objects.all()
     if request.method == 'POST':
@@ -186,7 +189,8 @@ def login_view(request):
         
     else:
         return render(request, 'login.html', locals())
-    
+
+# Sign out user method
 def logout_view(request):
     logout(request)
     return redirect('login')
@@ -196,7 +200,8 @@ def category(request, cat):
     blog = Blog.objects.filter(category = category)
     all_categ = Category.objects.all()
     return render(request, 'category.html', locals())
-    
+
+# Categorize blog posts according to their division 
 def categories(request):
     categories = Category.objects.prefetch_related('posts').all()
     all_categ = Category.objects.all()
@@ -219,6 +224,7 @@ def categories(request):
                 mod.time = int(mod.time)
     return render(request, 'categories.html', locals())
 
+# Displays all blog posts in a category 
 def category_detail(request, name):
     category = get_object_or_404(Category, name=name)
     blog_posts = category.posts.all().order_by('-time')
@@ -244,7 +250,8 @@ def category_detail(request, name):
     show_ellipsis = total_pages - current_page 
     
     return render(request, 'category_detail.html', locals())
-    
+
+# Displays a blog post full content
 def postpage(request, name, slug):
     blog = Blog.objects.get(slug=slug)
     if request.user:
@@ -273,6 +280,7 @@ def postpage(request, name, slug):
     
     return render(request, 'postpage.html', locals())
 
+# Pending 
 def comment(request):
     if request.method == "POST":
         name = request.POST.get('name')
@@ -285,6 +293,7 @@ def comment(request):
         return HttpResponse("Comment saved!")
     return HttpResponse("Error Loading page")
 
+# Caching operation of converting serialized data to a default data structure 
 def deserial(data):
     # Function to deserialize data if serialized data is cached
     images_data = serializers.deserialize('json', data)
@@ -294,6 +303,7 @@ def deserial(data):
     # print(f" data {images_data}")
     return images_data
 
+# Ajax request to update user's interaction on a blog's like feature 
 def update_like(request):
     """
     Function to update user like feature directly with ajax request 
@@ -317,7 +327,8 @@ def update_like(request):
             blog.likes.remove(user)
             blog.save()
             return JsonResponse({'success': True, 'message': 'Post unliked successfully!'})
-        
+
+# Ajax request to update user's interaction on a blog's bookmark feature 
 def update_bookmark(request):
     """
     Logic script to update user bookmark feature directly with ajax request 
