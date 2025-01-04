@@ -3,6 +3,7 @@ import math
 
 register = template.Library()
 
+# Custom template tag to perform arithmetical ops
 @register.filter(name='divide_by')
 def divide_by(value, arg):
     """Divides the value by the argument."""
