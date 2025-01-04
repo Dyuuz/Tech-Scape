@@ -74,7 +74,7 @@ def home(request):
         
     return render(request, 'index.html', locals())
 
-# Query recently uploaded data frok DB
+# Query recently uploaded record from DB
 def recentposts(request):
     all_categ = Category.objects.all()
     recentpost = Blog.objects.all().order_by('-time')
