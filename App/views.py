@@ -21,6 +21,7 @@ def home(request):
     
     if user.is_authenticated:
         all_user_likes = user.like_post.all()
+        all_user_likes = [int(blog.id) for blog in all_user_likes]
         
     all_categ = Category.objects.all()
     

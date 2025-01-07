@@ -322,9 +322,9 @@
           <p class="section-text">
             Enjoy highly rated articles on Tech Scape
           </p>
-
+          {{ all_user_likes }}
           <ul class="feature-list">
-
+            
             {% for myblog in blog %}
             <li>
               <div class="card feature-card">
@@ -339,16 +339,9 @@
                   <div class="card-wrapper">
                     <div class="card-tag">
                       <div class="post-actionspage">
-                        {% if myblog in all_user_likes%}
-                        <button class="post-likes" onclick="toggleLike()" title="Like this post">
+                        <button class="post-likes" onclick="toggleLike()" data-id="{{ myblog.id }}">
                             ❤️ <span id="like-count">{{myblog.likes.count}}</span>
                         </button>
-                        {% else %}
-                        <button class="post-likespage" onclick="toggleLike()" title="Like this post">
-                          ❤️ <span id="like-count">{{myblog.likes.count}}</span>
-                        </button>
-                        {% endif %}
-                      
                       </div>
                     </div>
 
@@ -856,7 +849,19 @@
     - custom js link
   -->
   <script src="{% static 'script22.js'%}"></script>
-
+  <script>
+    window.onload = function () {
+        const likedPosts = {{ all_user_likes }}; 
+        const posts = document.querySelectorAll(".post-likes");
+        
+        posts.forEach(post => {
+            const postId = parseInt(post.getAttribute("data-id"));
+            if (likedPosts.includes(postId)) {
+              post.classList.add('active');
+            }
+        });
+    };
+  </script>
   <!-- 
     - ionicon link
   -->
