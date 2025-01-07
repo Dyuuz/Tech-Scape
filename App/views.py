@@ -20,9 +20,11 @@ def home(request):
     liked_posts = []
     bookmarked_posts = []
     user = request.user
+    all_user_likes = user.like_post.all()
+    
     if user.is_authenticated:
         for post in blog:
-            is_liked = post in user.like_post.all()
+            is_liked = post in all_user_likes
             is_bookmarked = post in user.bookmark_post.all()
             liked_posts.append((post, is_liked))
             bookmarked_posts.append((post, is_bookmarked))

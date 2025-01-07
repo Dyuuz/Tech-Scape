@@ -339,10 +339,15 @@
                   <div class="card-wrapper">
                     <div class="card-tag">
                       <div class="post-actionspage">
-                                        
+                        {% if myblog in all_user_likes%}
                         <button class="post-likes" onclick="toggleLike()" title="Like this post">
                             ❤️ <span id="like-count">{{myblog.likes.count}}</span>
                         </button>
+                        {% else %}
+                        <button class="post-likespage" onclick="toggleLike()" title="Like this post">
+                          ❤️ <span id="like-count">{{myblog.likes.count}}</span>
+                        </button>
+                        {% endif %}
                       
                       </div>
                     </div>
