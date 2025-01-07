@@ -1,0 +1,235 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block hero %}
+
+{% endblock  %}
+
+{% block featured %}
+<section class="section feature" aria-label="feature" id="featured">
+    <div class="container">
+        <div class="profile-container">
+            <!-- Profile Header -->
+            <div class="profile-header">
+                <img src="cover-image.jpg" alt="Cover Image" class="cover-img">
+                <div class="profile-info">
+                    <img src="profile-pic.jpg" alt="Profile Picture" class="profile-pic">
+                    <div class="profile-details">
+                        <h1 class="profile-name">{{ user.username }}</h1>
+                        <p class="profile-handle">{{ user.email }}</p>
+                        <button class="edit-btn" onclick="toggleEdit()">Edit Profile</button>
+                    </div>
+                </div>
+            </div>
+    
+            <!-- Bio Section -->
+            <div class="bio-section">
+                <p id="bio-text" class="bio">This is a sample bio. Welcome to my profile!</p>
+                <textarea id="bio-edit" class="bio-edit" placeholder="Update your bio..."></textarea>
+                <button class="save-btn" onclick="saveBio()">Save</button>
+            </div>
+    
+            <!-- Tweet Button -->
+            <div class="tweet-btn">
+                <button onclick="showTweetBox()">Tweet</button>
+            </div>
+    
+            <!-- Tweets Section -->
+            <div class="tweets-section">
+                <div class="tweet">
+                    <p><strong>John Doe</strong> tweeted: Hello World!</p>
+                </div>
+                <div class="tweet">
+                    <p><strong>John Doe</strong> tweeted: Excited about my new profile page!</p>
+                </div>
+            </div>
+        </div>
+        <style>
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+            }
+            
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f0f0f0;
+                color: #333;
+            }
+            
+            .profile-container {
+                max-width: 900px;
+                margin: 0 auto;
+                background-color: #fff;
+                border-radius: 10px;
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+                overflow: hidden;
+                padding: 20px;
+            }
+            
+            .profile-header {
+                position: relative;
+            }
+            
+            .cover-img {
+                width: 100%;
+                height: 250px;
+                object-fit: cover;
+            }
+            
+            .profile-info {
+                display: flex;
+                align-items: center;
+                position: absolute;
+                bottom: -30px;
+                left: 20px;
+            }
+            
+            .profile-pic {
+                width: 100px;
+                height: 100px;
+                border-radius: 50%;
+                border: 3px solid #fff;
+                object-fit: cover;
+                box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
+            }
+            
+            .profile-details {
+                margin-left: 20px;
+            }
+            
+            .profile-name {
+                font-size: 24px;
+                font-weight: bold;
+            }
+            
+            .profile-handle {
+                font-size: 18px;
+                color: #555;
+            }
+            
+            .edit-btn {
+                margin-top: 10px;
+                padding: 8px 16px;
+                border: none;
+                background-color: #1DA1F2;
+                color: white;
+                font-size: 16px;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            
+            .edit-btn:hover {
+                background-color: #007bb5;
+            }
+            
+            .bio-section {
+                margin-top: 80px;
+            }
+            
+            .bio {
+                font-size: 18px;
+                margin-bottom: 10px;
+            }
+            
+            .bio-edit {
+                width: 100%;
+                height: 80px;
+                border: 1px solid #ddd;
+                padding: 10px;
+                border-radius: 5px;
+                font-size: 16px;
+                display: none;
+            }
+            
+            .save-btn {
+                padding: 8px 16px;
+                border: none;
+                background-color: #1DA1F2;
+                color: white;
+                cursor: pointer;
+                border-radius: 5px;
+            }
+            
+            .save-btn:hover {
+                background-color: #007bb5;
+            }
+            
+            .tweet-btn {
+                margin-top: 30px;
+                text-align: center;
+            }
+            
+            .tweet-btn button {
+                padding: 10px 20px;
+                background-color: #1DA1F2;
+                color: white;
+                font-size: 18px;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            
+            .tweet-btn button:hover {
+                background-color: #007bb5;
+            }
+            
+            .tweets-section {
+                margin-top: 40px;
+            }
+            
+            .tweet {
+                background-color: #f8f8f8;
+                padding: 15px;
+                border-radius: 10px;
+                margin-bottom: 10px;
+            }
+            
+            .tweet p {
+                font-size: 16px;
+            }            
+        </style>
+        <script>
+            function toggleEdit() {
+                const bioText = document.getElementById('bio-text');
+                const bioEdit = document.getElementById('bio-edit');
+                const saveBtn = document.querySelector('.save-btn');
+            
+                if (bioText.style.display !== "none") {
+                    bioText.style.display = "none";
+                    bioEdit.style.display = "block";
+                    bioEdit.value = bioText.innerText;
+                    saveBtn.style.display = "inline-block";
+                }
+            }
+            
+            function saveBio() {
+                const bioText = document.getElementById('bio-text');
+                const bioEdit = document.getElementById('bio-edit');
+                const saveBtn = document.querySelector('.save-btn');
+            
+                bioText.innerText = bioEdit.value;
+                bioText.style.display = "block";
+                bioEdit.style.display = "none";
+                saveBtn.style.display = "none";
+            }
+            
+            function showTweetBox() {
+                alert('Tweet feature is under development!');
+            }            
+        </script>
+    </div>
+</section>
+{% endblock %}
+
+{% block usercontents %}
+
+{% endblock  %}
+
+{% block populartags %}
+
+{% endblock  %}
+
+{% block recents %}
+
+{% endblock  %}

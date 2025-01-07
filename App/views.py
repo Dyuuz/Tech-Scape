@@ -355,3 +355,8 @@ def update_bookmark(request):
             blog.bookmarks.remove(user)
             blog.save()
             return JsonResponse({'success': True, 'message': 'Post unbookmarked successfully!'})
+
+def profile(request):
+    user = request.user
+    all_user_likes = user.like_post.all()
+    return render(request , 'profile.html', locals())
