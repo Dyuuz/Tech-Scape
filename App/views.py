@@ -17,6 +17,16 @@ from django.contrib.auth.hashers import make_password, check_password
 # Create your views here.
 def home(request):
     blog = Blog.objects.all().order_by('-time')[:5]
+    liked_posts = []
+    bookmarked_posts = []
+    user = request.user
+    if user.is_authenticated:
+        for post in blog:
+            is_liked = post in user.like_post.all()
+            is_bookmarked = post in user.bookmark_post.all()
+            liked_posts.append((post, is_liked))
+            bookmarked_posts.append((post, is_bookmarked))
+    
     all_categ = Category.objects.all()
     
     # Randomize database query results
