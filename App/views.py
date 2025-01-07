@@ -22,6 +22,7 @@ def home(request):
     if user.is_authenticated:
         all_user_likes = user.like_post.all()
         all_user_likes = [int(blog.id) for blog in all_user_likes]
+        all_user_bookmarks = user.bookmark_post.all()
         
     all_categ = Category.objects.all()
     
@@ -358,7 +359,5 @@ def update_bookmark(request):
 
 def profile(request):
     user = request.user
-    if user.is_authenticated:
-        all_user_likes = user.like_post.all()
-        return render(request , 'profile.html', locals())
-    return redirect('login')
+    all_user_likes = user.like_post.all()
+    return render(request , 'profile.html', locals())
