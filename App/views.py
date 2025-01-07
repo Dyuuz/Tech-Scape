@@ -358,5 +358,7 @@ def update_bookmark(request):
 
 def profile(request):
     user = request.user
-    all_user_likes = user.like_post.all()
-    return render(request , 'profile.html', locals())
+    if user.is_authenticated:
+        all_user_likes = user.like_post.all()
+        return render(request , 'profile.html', locals())
+    return redirect('login')
